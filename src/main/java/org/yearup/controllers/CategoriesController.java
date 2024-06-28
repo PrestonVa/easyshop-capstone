@@ -31,7 +31,8 @@ public class CategoriesController {
     }
 
     @GetMapping("/{id}")
-    public Category getById(@PathVariable int id) {
+    @PreAuthorize("permitAll()")
+    public Category getById (@PathVariable int id) {
         Category category = categoryDao.getById(id);
         if (category == null )
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
