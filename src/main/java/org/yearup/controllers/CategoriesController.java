@@ -40,14 +40,15 @@ public class CategoriesController {
     }
 
     @GetMapping("/{categoryId}/products")
+    @ResponseStatus(value = HttpStatus.OK)
     public List<Product> getProductsById(@PathVariable int categoryId) {
 
         return productDao.listByCategoryId(categoryId);
     }
 
     @PostMapping(path="")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(value=HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Category addCategory(@RequestBody Category category) {
 
         return categoryDao.create(category);
@@ -59,6 +60,7 @@ public class CategoriesController {
 
     }
     @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCategory(@PathVariable int id) {
         categoryDao.delete(id);
